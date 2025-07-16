@@ -1,0 +1,3 @@
+The most confusing part of the code was understanding how `clearInterval` works. It was difficult to understand how it stops the interval by taking in the variable `interval` as an argument.
+The animation helps visualize asynchronous behavior because it shows that JavaScript doesn’t have to wait for the interval to finish before proceeding to other tasks. Seeing the frame changes while the timer hasn't gone off helps us understand that JavaScript can manage asynchronous tasks without freezing the page.
+One thing that I changed was adding a time coundown animation. This helps the user know that the loading does not go on forever and how long it will take to finish.
