@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Loading Animation Simulator</title>
+  </head>
+  <body
+    style="
+      font-family: monospace;
+      text-align: center;
+      padding-top: 100px;
+      background-color: #f4f4f4;
+    "
+  >
+    <div id="loader" style="font-size: 2rem; margin-bottom: 20px">
+      Loading...
+    </div>
+    <div id="status">Please wait</div>
+
+    <script>
+      function runLoadingAnimation() {
+        const loader = document.getElementById("loader"); //grabs "loader" element and store as variable loader
+        const status = document.getElementById("status"); //grabs "status" element and store as variable status
+
+        const frames = ["⏳", "⌛", ".", "..", "..."]; //frames that are repeating
+        let index = 0;
+        let cycleCount = 0;
+        const maxCycles = 10; ///max # of times the frames are repeating
+
+        //store ID returned by setInterval to variable interval
+        const interval = setInterval(() => {
+          loader.textContent = frames[index % frames.length]; //changes the loader element to display current frame
+          //% by frames.length ensures that we are going from frame[0] to frame[4] and back to frame[0]
+          index++;
+          if (index % frames.length === 0) {
+            //if reaches last frame "...", icnrement cycle count since a cycle is completed
+            cycleCount++;
+          }
+          if (cycleCount >= maxCycles) {
+            //when reaches 10 cycles, call clearInterval to stop the loop
+            //since setInterval() returns an ID that represents the interval, and we stored in in the variable interval, calling clearInterval with that ID will it stop the specific interval
+            clearInterval(interval); //without this, we will go on forever
+            loader.textContent = "✅"; //changes loader element to display check mark
+            status.textContent = "Done!"; //changes status element to display "Done!"
+          }
+        }, 500);
+      }
+
+      runLoadingAnimation();
+    </script>
+  </body>
+</html>
