@@ -16,16 +16,19 @@
       Loading...
     </div>
     <div id="status">Please wait</div>
+    <div id="timeLeft">Time Left: 25 seconds</div>
 
     <script>
       function runLoadingAnimation() {
         const loader = document.getElementById("loader"); //grabs "loader" element and store as variable loader
         const status = document.getElementById("status"); //grabs "status" element and store as variable status
+        const timer = document.getElementById("timeLeft"); //grabs "timeLeft" element
 
         const frames = ["⏳", "⌛", ".", "..", "..."]; //frames that are repeating
         let index = 0;
         let cycleCount = 0;
         const maxCycles = 10; ///max # of times the frames are repeating
+        let timeLeft = 25; //25 seconds for 10 cycles with each frame takes 500ms
 
         //store ID returned by setInterval to variable interval
         const interval = setInterval(() => {
@@ -35,6 +38,13 @@
           if (index % frames.length === 0) {
             //if reaches last frame "...", icnrement cycle count since a cycle is completed
             cycleCount++;
+            timeLeft -= 2.5;
+            if (cycleCount % 2 == 0) {
+              timer.textContent = `${timeLeft} seconds left!`;
+            }
+            if (cycleCount % 5 == 0) {
+              timer.textContent = `${timeLeft} seconds left! Almost there 🏋️`;
+            }
           }
           if (cycleCount >= maxCycles) {
             //when reaches 10 cycles, call clearInterval to stop the loop
@@ -42,11 +52,13 @@
             clearInterval(interval); //without this, we will go on forever
             loader.textContent = "✅"; //changes loader element to display check mark
             status.textContent = "Done!"; //changes status element to display "Done!"
+            timer.textContent = "";
           }
         }, 500);
       }
       runLoadingAnimation();
       //One creative idea: add confetti when loading finishes
+      //Added feature: time countdown
     </script>
   </body>
 </html>
